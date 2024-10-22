@@ -1,12 +1,8 @@
 <template>
-    <div v-show="showContent">
-        <p>Content tab : {{ activeTabProvided }}</p>
-        <wwElement class="ww-tab-content" v-bind="content.tabContentElement" />
-    </div>
+    <wwLayout v-show="showContent" path="tabContentElement" />
 </template>
 
 <script>
-// import { computed, ref } from 'vue';
 
 export default {
     props: {
@@ -35,12 +31,4 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.ww-tab-content-container {
-    background-color: green;
-    padding: 10px;
-
-    .ww-tab-content {
-        background-color: yellow;
-    }
-}
 </style>
