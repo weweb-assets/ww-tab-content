@@ -1,5 +1,9 @@
 <template>
-    <wwLayout v-show="showContent" path="tabContentElement" />
+    <wwLayout 
+        v-if="loadAllTabs ? true : showContent"
+        v-show="showContent" 
+        path="tabContentElement" 
+    />
 </template>
 
 <script>
@@ -23,10 +27,21 @@ export default {
             return this.activeTabProvided == this.content.name;
         },
     },
-    watch: {},
+    watch: {
+        showContent: {
+            immediate: true,
+            handler(value) {
+                if (value) {
+                    this.$emit('add-state', 'active');
+                } else {
+                    this.$emit('remove-state', 'active');
+                }
+            },
+        },
+    },
     mounted() {},
     methods: {},
-    inject: ['activeTabProvided'],
+    inject: ['activeTabProvided', 'loadAllTabs'],
 };
 </script>
 

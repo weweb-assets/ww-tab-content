@@ -9,6 +9,7 @@ export default {
         },
         customSettingsPropertiesOrder: [],
     },
+    states: ['active'],
     properties: {
         name: {
             label: {
