@@ -1,12 +1,12 @@
 <template>
-    <wwLayout 
-        v-if="loadAllTabs ? true : showContent"
-        v-show="showContent" 
-        path="tabContentElement" 
-    />
+    <wwLayout v-if="loadAllTabs ? true : showContent" v-show="showContent" path="tabContentElement" />
 </template>
 
 <script>
+
+/* wwEditor:start */
+import useTabContentHint from './editor/useTabContentHint';
+/* wwEditor:end */
 
 export default {
     props: {
@@ -18,14 +18,27 @@ export default {
         wwElementState: { type: Object, required: true },
     },
     emits: [],
-    setup(props) {},
+    setup(props, { emit }) {
+        /* wwEditor:start */
+        useTabContentHint(emit);
+        /* wwEditor:end */
+    },
     data() {
-        return {};
+        return {
+            /* wwEditor:start */
+            isMounted: false,
+            /* wwEditor:end */
+        };
     },
     computed: {
         showContent() {
             return this.activeTabProvided == this.content.name;
         },
+        /* wwEditor:start */
+        currentName() {
+            return this.content.name;
+        },
+        /* wwEditor:end */
     },
     watch: {
         showContent: {
@@ -38,10 +51,38 @@ export default {
                 }
             },
         },
+        /* wwEditor:start */
+        currentName: {
+            immediate: true,
+            handler(newValue, oldValue) {
+                this.isMounted ? this.changeContentName(oldValue, newValue) : null;
+                console.log('currentName', newValue);
+            },
+        },
+        /* wwEditor:end */
     },
-    mounted() {},
+    mounted() {
+        console.log('mounted', this.content.name);
+        this.registerTabContent(this.content.name);
+        /* wwEditor:start */
+        this.isMounted = true;
+        /* wwEditor:end */
+    },
+    unmounted() {
+        /* wwEditor:start */
+        this.unregisterTabContent(this.content.name);
+        /* wwEditor:end */
+    },
     methods: {},
-    inject: ['activeTabProvided', 'loadAllTabs'],
+    inject: [
+        'activeTabProvided',
+        'loadAllTabs',
+        'registerTabContent',
+        /* wwEditor:start */
+        'unregisterTabContent',
+        'changeContentName',
+        /* wwEditor:end */
+    ],
 };
 </script>
 
