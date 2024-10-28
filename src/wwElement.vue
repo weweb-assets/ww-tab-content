@@ -55,32 +55,30 @@ export default {
         currentName: {
             immediate: true,
             handler(newValue, oldValue) {
-                this.isMounted ? this.changeContentName(oldValue, newValue) : null;
-                console.log('currentName', newValue);
+                this.isMounted ? this.hintChangeContentName(oldValue, newValue) : null;
             },
         },
         /* wwEditor:end */
     },
     mounted() {
-        console.log('mounted', this.content.name);
-        this.registerTabContent(this.content.name);
         /* wwEditor:start */
+        this.hintRegisterTabContent(this.content.name);
         this.isMounted = true;
         /* wwEditor:end */
     },
     unmounted() {
         /* wwEditor:start */
-        this.unregisterTabContent(this.content.name);
+        this.hintUnregisterTabContent(this.content.name);
         /* wwEditor:end */
     },
     methods: {},
     inject: [
         'activeTabProvided',
         'loadAllTabs',
-        'registerTabContent',
         /* wwEditor:start */
-        'unregisterTabContent',
-        'changeContentName',
+        'hintRegisterTabContent',
+        'hintUnregisterTabContent',
+        'hintChangeContentName',
         /* wwEditor:end */
     ],
 };
