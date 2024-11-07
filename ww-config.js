@@ -3,9 +3,9 @@ export default {
         label: {
             en: 'Tab content',
         },
-        icon: 'slider',         // 📛 TODO
+        icon: 'content',
         bubble: {
-            icon: 'slider',     // 📛 TODO
+            icon: 'content',
         },
         customSettingsPropertiesOrder: [],
         hint: (_, sidepanelContent) => {
@@ -26,6 +26,9 @@ export default {
             },
             type: 'Text',
             defaultValue: '',
+            propertyHelp: {
+                tooltip: "The name of the trigger that activates this content.",
+            },
         },
         tabContentElement: {
             hidden: true,
