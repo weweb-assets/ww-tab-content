@@ -18,6 +18,13 @@ export default {
             }
         },
     },
+    inherit: {
+      type: "ww-layout",
+    },
+    options: {
+      autoByContent: true,
+      displayAllowedValues: ["flex", "grid"],
+    },
     states: ['active'],
     properties: {
         name: {
@@ -29,6 +36,7 @@ export default {
             propertyHelp: {
                 tooltip: "The name of the trigger that activates this content.",
             },
+            bindable: true,
         },
         tabContentElement: {
             hidden: true,
