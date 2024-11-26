@@ -1,12 +1,12 @@
 <template>
-    <div v-show="showContent">
-        <p>Content tab : {{ activeTabProvided }}</p>
-        <wwElement class="ww-tab-content" v-bind="content.tabContentElement" />
-    </div>
+    <wwLayout v-if="loadAllTabs ? true : showContent" v-show="showContent" path="tabContentElement" />
 </template>
 
 <script>
-// import { computed, ref } from 'vue';
+
+/* wwEditor:start */
+import useTabContentHint from './editor/useTabContentHint';
+/* wwEditor:end */
 
 export default {
     props: {
@@ -18,29 +18,71 @@ export default {
         wwElementState: { type: Object, required: true },
     },
     emits: [],
-    setup(props) {},
+    setup(props, { emit }) {
+        /* wwEditor:start */
+        useTabContentHint(emit);
+        /* wwEditor:end */
+    },
     data() {
-        return {};
+        return {
+            /* wwEditor:start */
+            isMounted: false,
+            /* wwEditor:end */
+        };
     },
     computed: {
         showContent() {
             return this.activeTabProvided == this.content.name;
         },
+        /* wwEditor:start */
+        currentName() {
+            return this.content.name;
+        },
+        /* wwEditor:end */
     },
-    watch: {},
-    mounted() {},
+    watch: {
+        showContent: {
+            immediate: true,
+            handler(value) {
+                if (value) {
+                    this.$emit('add-state', 'active');
+                } else {
+                    this.$emit('remove-state', 'active');
+                }
+            },
+        },
+        /* wwEditor:start */
+        currentName: {
+            immediate: true,
+            handler(newValue, oldValue) {
+                this.isMounted ? this.hintChangeContentName(oldValue, newValue) : null;
+            },
+        },
+        /* wwEditor:end */
+    },
+    mounted() {
+        /* wwEditor:start */
+        this.hintRegisterTabContent(this.content.name);
+        this.isMounted = true;
+        /* wwEditor:end */
+    },
+    unmounted() {
+        /* wwEditor:start */
+        this.hintUnregisterTabContent(this.content.name);
+        /* wwEditor:end */
+    },
     methods: {},
-    inject: ['activeTabProvided'],
+    inject: [
+        'activeTabProvided',
+        'loadAllTabs',
+        /* wwEditor:start */
+        'hintRegisterTabContent',
+        'hintUnregisterTabContent',
+        'hintChangeContentName',
+        /* wwEditor:end */
+    ],
 };
 </script>
 
 <style lang="scss" scoped>
-.ww-tab-content-container {
-    background-color: green;
-    padding: 10px;
-
-    .ww-tab-content {
-        background-color: yellow;
-    }
-}
 </style>

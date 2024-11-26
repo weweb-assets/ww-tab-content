@@ -3,12 +3,29 @@ export default {
         label: {
             en: 'Tab content',
         },
-        icon: 'slider',         // 📛 TODO
+        icon: 'content',
         bubble: {
-            icon: 'slider',     // 📛 TODO
+            icon: 'content',
         },
         customSettingsPropertiesOrder: [],
+        hint: (_, sidepanelContent) => {
+            if(sidepanelContent.missingTabOrField) {
+                return {
+                    type: 'warning',
+                    header: sidepanelContent.missingTabOrField.header,
+                    text: sidepanelContent.missingTabOrField.text,
+                };
+            }
+        },
     },
+    inherit: {
+      type: "ww-layout",
+    },
+    options: {
+      autoByContent: true,
+      displayAllowedValues: ["flex", "grid"],
+    },
+    states: ['active'],
     properties: {
         name: {
             label: {
@@ -16,13 +33,21 @@ export default {
             },
             type: 'Text',
             defaultValue: '',
+            propertyHelp: {
+                tooltip: "The name of the trigger that activates this content.",
+            },
+            bindable: true,
         },
         tabContentElement: {
             hidden: true,
-            defaultValue: {
-                isWwObject: true,
-                type: '6f8796b1-8273-498d-95fc-7013b7c63214', // Button
-            }
+            defaultValue: [],
         },
+        /* wwEditor:start */
+        missingTabOrField: {
+            hidden: true,
+            defaultValue: false,
+            editorOnly: true,
+        },
+        /* wwEditor:end */
     },
 };
