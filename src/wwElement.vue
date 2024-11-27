@@ -3,15 +3,13 @@
         <wwLayout v-show="showContent" path="tabContentElement" />
     </template>
     <template v-else>
-        <div v-if="loadAllTabs ? true : showContent">
-        <wwLayout  path="tabContentElement" />
-    </div>
+        <div>
+            <wwLayout v-if="loadAllTabs ? true : showContent" path="tabContentElement" />
+        </div>
     </template>
-   
 </template>
 
 <script>
-
 /* wwEditor:start */
 import useTabContentHint from './editor/useTabContentHint';
 /* wwEditor:end */
@@ -92,5 +90,4 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
-</style>
+<style lang="scss" scoped></style>
