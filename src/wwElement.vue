@@ -1,11 +1,11 @@
 <template>
     <template v-if="loadAllTabs && !showContent && isEditing">
         <div>
-            <wwLayout v-if="loadAllTabs ? true : showContent" path="tabContentElement" />
+            <wwLayout v-if="loadAllTabs ? true : showContent" v-show="showContent" path="tabContentElement" />
         </div>
     </template>
     <template v-else>
-        <wwLayout v-show="showContent" path="tabContentElement" />
+        <wwLayout v-if="loadAllTabs ? true : showContent" v-show="showContent" path="tabContentElement" />
     </template>
 </template>
 
