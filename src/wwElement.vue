@@ -1,5 +1,13 @@
 <template>
-    <wwLayout v-if="loadAllTabs ? true : showContent" v-show="showContent" path="tabContentElement" />
+    <template v-if="loadAllTabs">
+        <wwLayout v-show="showContent" path="tabContentElement" />
+    </template>
+    <template v-else>
+        <div v-if="loadAllTabs ? true : showContent">
+        <wwLayout  path="tabContentElement" />
+    </div>
+    </template>
+   
 </template>
 
 <script>
