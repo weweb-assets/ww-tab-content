@@ -1,5 +1,5 @@
 <template>
-    <template v-if="loadAllTabs && !showContent && isEditing">
+    <template v-if="!loadAllTabs && !showContent && isEditing">
         <div>
             <wwLayout v-if="loadAllTabs ? true : showContent" v-show="showContent" path="tabContentElement" />
         </div>
