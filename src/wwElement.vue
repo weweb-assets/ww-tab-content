@@ -1,11 +1,11 @@
 <template>
-    <template v-if="loadAllTabs">
-        <wwLayout v-show="showContent" path="tabContentElement" />
-    </template>
-    <template v-else>
+    <template v-if="loadAllTabs && !showContent && isEditing">
         <div>
             <wwLayout v-if="loadAllTabs ? true : showContent" path="tabContentElement" />
         </div>
+    </template>
+    <template v-else>
+        <wwLayout v-show="showContent" path="tabContentElement" />
     </template>
 </template>
 
@@ -37,6 +37,13 @@ export default {
         };
     },
     computed: {
+        isEditing() {
+            /* wwEditor:start */
+            return this.wwEditorState.editMode === wwLib.wwEditorHelper.EDIT_MODES.EDITION;
+            /* wwEditor:end */
+            // eslint-disable-next-line no-unreachable
+            return false;
+        },
         showContent() {
             return this.activeTabProvided == this.content.name;
         },
