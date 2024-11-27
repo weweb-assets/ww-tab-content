@@ -1,11 +1,11 @@
 <template>
     <template v-if="!loadAllTabs && !showContent && isEditing">
         <div>
-            <wwLayout v-if="loadAllTabs ? true : showContent" v-show="showContent" path="tabContentElement" />
+            <wwLayout v-bind="$attrs" v-if="loadAllTabs ? true : showContent" v-show="showContent" path="tabContentElement" />
         </div>
     </template>
     <template v-else>
-        <wwLayout v-if="loadAllTabs ? true : showContent" v-show="showContent" path="tabContentElement" />
+        <wwLayout v-bind="$attrs" v-if="loadAllTabs ? true : showContent" v-show="showContent" path="tabContentElement" />
     </template>
 </template>
 
@@ -15,6 +15,7 @@ import useTabContentHint from './editor/useTabContentHint';
 /* wwEditor:end */
 
 export default {
+    inheritAttrs: false,
     props: {
         content: { type: Object, required: true },
         /* wwEditor:start */
