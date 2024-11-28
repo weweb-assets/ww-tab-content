@@ -1,5 +1,5 @@
 <template>
-    <template v-if="!loadAllTabs && !showContent && isEditing">
+    <template v-if="!loadAllTabs && !showContent && isEditor">
         <div>
             <wwLayout v-bind="$attrs" v-if="loadAllTabs ? true : showContent" v-show="showContent" path="tabContentElement" />
         </div>
@@ -38,9 +38,9 @@ export default {
         };
     },
     computed: {
-        isEditing() {
+        isEditor() {
             /* wwEditor:start */
-            return this.wwEditorState.editMode === wwLib.wwEditorHelper.EDIT_MODES.EDITION;
+            return this.wwEditorState.editMode === wwLib.wwEditorHelper.EDIT_MODES.EDITION || this.wwEditorState.editMode === wwLib.wwEditorHelper.EDIT_MODES.PREVIEW;
             /* wwEditor:end */
             // eslint-disable-next-line no-unreachable
             return false;
